@@ -130,6 +130,8 @@ function playAudio(volume) {
     // For example if you change to a bell sound, here you could use "/churchBell/gate" instead of
     // "/thunder/rumble".
     // ★ KEY CALL — dspNode.setParamValue(address, value) is how ALL sound control happens. Keep values inside the min..max (see getMinMaxParam).
+    dspNode.setParamValue("/djembe/midi/freq", 100);      // highest drum pitch, so phone speakers can play it
+    dspNode.setParamValue("/djembe/otherParams/strikeSharpness", 5);   // hard, sharp hit = loud and clear
     dspNode.setParamValue("/djembe/midi/gain", volume);   // loudness 0..1
     dspNode.setParamValue("/djembe/gate", 1);             // hit the drum...
     setTimeout(() => { dspNode.setParamValue("/djembe/gate", 0) }, 100);   // ...and release
