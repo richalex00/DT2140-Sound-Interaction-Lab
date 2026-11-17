@@ -48,7 +48,8 @@ engine.createDSP(audioContext, 1024)
 const G = 9.81;
 const LARGE = 4;              // m/s^2 away from gravity: below this a movement is "small" and ignored
 const FULL = 14;              // movement that counts as maximum effort
-const WORK_SECONDS = 8;       // seconds of full-effort kneading needed (demo; ~10 min in real use)
+const WORK_SECONDS = 10;      // seconds of full-effort kneading needed (demo; ~10 min in real use)
+const SLOW_FROM = 0.75;       // from 75% the motor starts slowing down: "almost done"
 const VOLUME = 0.5;           // safety cap for headphones (DSP max is 1)
 
 let effort = 0;               // smoothed 0..1
@@ -85,7 +86,13 @@ function accelerationChange(accx, accy, accz) {
         const motorOn = !done && effort > 0.05;
         dspNode.setParamValue("/engine/gate", motorOn ? 1 : 0);
         // Motor speed follows your effort; it also rises a bit as the dough develops
-        dspNode.setParamValue("/engine/maxSpeed", 0.1 + 0.5 * effort + 0.2 * progress);
+        let speed = 0.1 + 0.5 * effort + 0.2 * progress;
+        // Almost done: the mixer slows down by itself and its sound gets deeper and
+        // more resonant, telling you to slow down too
+        const ending = constrain((progress - SLOW_FROM) / (1 - SLOW_FROM), 0, 1);
+        speed *= 1 - 0.7 * ending;
+        dspNode.setParamValue("/engine/maxSpeed", speed);
+        dspNode.setParamValue("/engine/tubeRes", 0.2 + 0.7 * ending);
         dspNode.setParamValue("/engine/volume", VOLUME);
     }
     updateReadout();
@@ -130,7 +137,7 @@ function updateReadout() {
     // Display inside the description box of sound4.html (<p id="kneadDisplay">)
     const display = document.getElementById("kneadDisplay");
     if (!display) return;
-    const state = done ? "dough ready!" : effort > 0.05 ? "kneading" : "knead harder";
+    const state = done ? "dough ready!" : progress >= SLOW_FROM ? "almost done, slow down" : effort > 0.05 ? "kneading" : "knead harder";
     display.textContent = `${Math.round(progress * 100)}%  ${state}`;
 }
 

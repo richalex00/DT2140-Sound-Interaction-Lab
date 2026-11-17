@@ -45,7 +45,7 @@ hourglass.createDSP(audioContext, 1024)
 //==========================================================================================
 const DURATION = 15;          // seconds for all the sand to run (demo; 180 = 3 min for eggs)
 const UPRIGHT_G = 8;          // m/s^2 of gravity along the long axis = phone standing up
-const FADE = 0.06;            // the last 6% of sand falls as thinning grains
+const FADE = 0.4;             // in the last 40% of the time the stream gets thinner and quieter
 const VOLUME = 0.35;          // safety cap for headphones (DSP max is 1)
 
 let sandA = 1;                // fraction of sand in half A (the top half when the phone is upright)
@@ -77,11 +77,13 @@ function accelerationChange(accx, accy, accz) {
         top = 1 - sandA;
     }
 
-    // Full stream while there is sand on top, thinning grains at the very end
-    const flow = top > 0 ? Math.min(1, 0.25 + 0.75 * top / FADE) : 0;
+    // Full stream at first; in the last part it fades gradually (fewer grains, quieter),
+    // so you can hear that the time is running out before it is over
+    const ending = top > 0 ? Math.min(1, top / FADE) : 0;     // 1 = plenty of sand, 0 = empty
+    const flow = top > 0 ? 0.1 + 0.9 * ending : 0;
     if (dspNode && audioContext.state === 'running') {
         dspNode.setParamValue("/hourglass/flow", flow);
-        dspNode.setParamValue("/hourglass/volume", VOLUME);
+        dspNode.setParamValue("/hourglass/volume", VOLUME * (0.4 + 0.6 * ending));
     }
     updateReadout(top);
 }

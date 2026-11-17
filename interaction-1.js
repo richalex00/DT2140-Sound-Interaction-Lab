@@ -44,11 +44,14 @@ kitchenTimer.createDSP(audioContext, 1024)
 //==========================================================================================
 const STEP_DEG = 30;          // degrees of rotation for one tick (12 steps per full turn)
 const STEP_SECONDS = 10;      // time added per tick (10 s for the demo; 60 = 1 minute in real use)
+const CLICK_DEG = 5;          // a soft ratchet click every few degrees, between the louder step ticks
 const START_DELAY_MS = 1500;  // countdown starts when you stop turning for this long
 const RING_SECONDS = 3;       // how long the bell rings at zero
 const MAX_VOLUME = 0.6;       // safety cap for headphones (DSP max is 1)
 
 let angle = 0;                // degrees turned since the last tick
+let clickAngle = 0;           // degrees turned since the last soft click
+let lastClick = 0;
 let seconds = 0;              // time on the timer
 let lastTurn = 0;             // millis() of the last tick
 let running = false;
@@ -118,8 +121,19 @@ function rotationChange(rotx, roty, rotz) {
 
     // rotz grows when turning anticlockwise, so clockwise (like a real timer) = negative delta
     angle -= delta;
-    while (angle >= STEP_DEG) { angle -= STEP_DEG; addStep(+1); }
-    while (angle <= -STEP_DEG) { angle += STEP_DEG; addStep(-1); }
+    let stepped = false;
+    while (angle >= STEP_DEG) { angle -= STEP_DEG; addStep(+1); stepped = true; }
+    while (angle <= -STEP_DEG) { angle += STEP_DEG; addStep(-1); stepped = true; }
+
+    // Ratchet: a soft click for every small movement (CLICK_DEG), like the teeth of a real timer
+    clickAngle += Math.abs(delta);
+    if (clickAngle >= CLICK_DEG) {
+        clickAngle = 0;
+        if (!stepped && millis() - lastClick > 50) {
+            lastClick = millis();
+            tick(0.2);
+        }
+    }
 }
 
 function mousePressed() {
