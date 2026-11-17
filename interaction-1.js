@@ -12,7 +12,7 @@ let dspNodeParams = null;
 let jsonParams = null;
 
 // Change here to ("tuono") depending on your wasm file name
-// ✅ CHANGED 1 — the sound for this page is now "djembeMIDI" (the drum). It was "tuono" (thunder).
+// ✅ CHANGED 1 (Interaction 1) — the sound for this page is now "djembeMIDI" (the drum). It was "tuono" (thunder).
 const dspName = "djembeMIDI";
 const instance = new FaustWasm2ScriptProcessor(dspName);
 
@@ -26,7 +26,7 @@ if (typeof module === "undefined") {
 }
 
 // The name should be the same as the WASM file, so change tuono with brass if you use brass.wasm
-// ✅ CHANGED 2 — same name again here: djembeMIDI.createDSP (it must match CHANGED 1 or nothing loads).
+// ✅ CHANGED 2 (Interaction 1) — same name again here: djembeMIDI.createDSP (it must match CHANGED 1 or nothing loads).
 djembeMIDI.createDSP(audioContext, 1024)
     .then(node => {
         dspNode = node;
@@ -54,7 +54,7 @@ djembeMIDI.createDSP(audioContext, 1024)
 //
 //==========================================================================================
 
-// ✅✅✅ CHANGED 3 — THE CORE OF MAPPING 1 ✅✅✅ ---------------------------------------------
+// ✅✅✅ CHANGED 3 (Interaction 1) — THE CORE OF MAPPING 1 ✅✅✅ ---------------------------------------------
 // accelerationChange() is called by p5 EVERY FRAME (~60 times a second) with the phone's
 // movement (acceleration without gravity, so it is ≈ 0 when the phone is still).
 // MAPPING 1 — THE DOWNBEAT
@@ -75,13 +75,13 @@ function accelerationChange(accx, accy, accz) {
         playAudio(volume);
     }
 }
-// ✅✅✅ END OF CHANGED 3 -------------------------------------------------------------------
+// ✅✅✅ END OF CHANGED 3 (Interaction 1) -------------------------------------------------------------------
 
 // ★ EDIT 3 — called EVERY FRAME with orientation in RADIANS: rotx = front/back tilt (±π), roty = left/right tilt (±π/2), rotz = heading (0..2π, jumps at 0/2π). Use for tilt/level/pointing/spin.
 function rotationChange(rotx, roty, rotz) {
 }
 
-// ✅ CHANGED 4 — clicking/tapping the page plays the drum at full volume, playAudio(1), to test the sound without swinging.
+// ✅ CHANGED 4 (Interaction 1) — clicking/tapping the page plays the drum at full volume, playAudio(1), to test the sound without swinging.
 function mousePressed() {
     playAudio(1)
     // Use this for debugging from the desktop!
@@ -95,7 +95,7 @@ function deviceMoved() {
 function deviceTurned() {
     threshVals[1] = turnAxis;
 }
-// ✅ CHANGED 5 — removed playAudio() from deviceShaken(), so shaking doesn't play extra beats.
+// ✅ CHANGED 5 (Interaction 1) — removed playAudio() from deviceShaken(), so shaking doesn't play extra beats.
 //    Only our big-movement check (CHANGED 3) plays the drum.
 function deviceShaken() {
     shaketimer = millis();
@@ -121,7 +121,7 @@ function getMinMaxParam(address) {
 //
 //==========================================================================================
 
-// ✅ CHANGED 6 — playAudio(volume) now hits the DRUM (it was thunder), at the loudness it is given.
+// ✅ CHANGED 6 (Interaction 1) — playAudio(volume) now hits the DRUM (it was thunder), at the loudness it is given.
 function playAudio(volume) {
     if (!dspNode) {
         return;
@@ -133,7 +133,7 @@ function playAudio(volume) {
     // them printed on the console of your browser when you load the page)
     // For example if you change to a bell sound, here you could use "/churchBell/gate" instead of
     // "/thunder/rumble".
-    // ✅ CHANGED 6 (cont.) — dspNode.setParamValue(address, value) is how we control the sound.
+    // ✅ CHANGED 6 (Interaction 1, cont.) — dspNode.setParamValue(address, value) is how we control the sound.
     //    The addresses are the drum's controls (listed in the browser console).
     dspNode.setParamValue("/djembe/midi/freq", 100);      // highest drum pitch, so phone speakers can play it
     dspNode.setParamValue("/djembe/otherParams/strikeSharpness", 5);   // hard, sharp hit = loud and clear
