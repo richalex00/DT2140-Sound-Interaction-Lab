@@ -15,23 +15,32 @@
 
   <body class="grid-container fullbody">
     <nav class="primary-nav">
-      <li><a href="index.html">Interaction 1</a></li>
-      <li><a href="sound2.html">Interaction 2</a></li>
-      <li><a href="sound3.html">Interaction 3</a></li>
+      <li><a href="index.html">Timer</a></li>
+      <li><a href="sound2.html">Hourglass</a></li>
+      <li><a href="sound3.html">Recipe</a></li>
+      <li><a href="sound4.html">Kneading</a></li>
     </nav>
 
     <div id="info">
+      <p id="hourglassDisplay" style="text-align: center; font: bold 1.4em monospace; margin: 0.4em 0">15 s</p>
       <p>
-        <b>Insert a description of your sonic interaction design here! </b>
+        <b>Hourglass (egg / tea timer): stand the phone up</b>
         <br />
         <br />
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut adipisci,
-        non quasi vel vero odit debitis recusandae impedit laborum id tempora!
-        Enim accusantium a voluptatum nisi ea placeat? Accusamus, perferendis?
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur
-        accusantium suscipit eaque similique odit deserunt iure est unde libero
-        pariatur doloribus voluptatibus voluptatum cupiditate error, dolorem
-        eius eos. Provident, ullam.
+        Use case: a quick timer for boiled eggs or tea, with nothing to set.
+        Stand the phone upright on the counter like an hourglass.
+        <br />
+        <br />
+        Mapping: while the phone stands upright you hear the sand running
+        (15 s in this demo, 3 minutes for eggs). The stream thins out into the last
+        grains and stops when the time is over. As with a real hourglass, laying
+        the phone down pauses the sand, and turning it upside down makes the sand
+        run back, so the time that has passed comes back.
+        <br />
+        <br />
+        Why: the sound is the hourglass itself, so you know the timer is running
+        and when it is almost over without looking. The sand is our own Faust
+        model built on the rain model (faust-dsp/Kitchen/hourglass.dsp).
       </p>
     </div>
 

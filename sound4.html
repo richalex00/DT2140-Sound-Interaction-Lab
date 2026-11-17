@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, max-age=0, must-revalidate"
+    />
+    <title>p5.js faust example</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.js"></script>
+    <script src="dsp.js"></script>
+  </head>
+
+  <body class="grid-container fullbody">
+    <nav class="primary-nav">
+      <li><a href="index.html">Timer</a></li>
+      <li><a href="sound2.html">Hourglass</a></li>
+      <li><a href="sound3.html">Recipe</a></li>
+      <li><a href="sound4.html">Kneading</a></li>
+    </nav>
+
+    <div id="info">
+      <p id="kneadDisplay" style="text-align: center; font: bold 1.4em monospace; margin: 0.4em 0">0%</p>
+      <p>
+        <b>Kneading coach: only very large movements</b>
+        <br />
+        <br />
+        Use case: recipes say "knead for 10 minutes", but what counts is the work you
+        put in, not the clock. Put the phone in your apron pocket (or strap it to your
+        forearm) and knead or whisk.
+        <br />
+        <br />
+        Mapping: only large movements count, small ones are ignored. You become the
+        stand mixer: a motor sound turns on and follows your pace, faster when you
+        work harder, and it rises slowly as the dough develops. When you have done
+        enough work (about 8 s of full effort in this demo) the motor spins down and
+        stops: the dough is ready.
+        <br />
+        <br />
+        Why: the motor of a stand mixer is the familiar sound of kneading, so the
+        sound tells you that your effort is being counted and when you can stop.
+      </p>
+    </div>
+
+    <footer>
+      <p>
+        Developed by Maurizio Berta and Laura McHugh
+        <br />
+        for
+        <a href="https://github.com/mauriziobrt/DT2140-Sound-Interaction-Lab"
+          >DT2140 Multimodal Interfaces Sound Interaction Lab</a
+        >
+        <br />
+        KTH Royal Institute of Technology, 2025
+      </p>
+    </footer>
+  </body>
+  <script src="helpers.js"></script>
+  <script src="interaction-4.js"></script>
+  <script src="sketch.js"></script>
+</html>

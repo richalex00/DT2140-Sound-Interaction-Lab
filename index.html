@@ -15,23 +15,33 @@
 
   <body class="grid-container fullbody">
     <nav class="primary-nav">
-      <li><a href="index.html">Interaction 1</a></li>
-      <li><a href="sound2.html">Interaction 2</a></li>
-      <li><a href="sound3.html">Interaction 3</a></li>
+      <li><a href="index.html">Timer</a></li>
+      <li><a href="sound2.html">Hourglass</a></li>
+      <li><a href="sound3.html">Recipe</a></li>
+      <li><a href="sound4.html">Kneading</a></li>
     </nav>
 
     <div id="info">
+      <p id="timerDisplay" style="text-align: center; font: bold 1.6em monospace; margin: 0.4em 0">0:00</p>
       <p>
-        <b>Insert a description of your sonic interaction design here! </b>
+        <b>Kitchen timer: spin the phone flat on the counter</b>
         <br />
         <br />
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut adipisci,
-        non quasi vel vero odit debitis recusandae impedit laborum id tempora!
-        Enim accusantium a voluptatum nisi ea placeat? Accusamus, perferendis?
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur
-        accusantium suscipit eaque similique odit deserunt iure est unde libero
-        pariatur doloribus voluptatibus voluptatum cupiditate error, dolorem
-        eius eos. Provident, ullam.
+        Use case: you are cooking with dirty hands and cannot touch the screen.
+        Lay the phone on the counter and turn it like the knob of a mechanical
+        kitchen timer (you can even push it with the back of your hand).
+        <br />
+        <br />
+        Mapping: every 30&deg; clockwise (one "hour" on a clock face) adds one step
+        (10 s in this demo, 1 minute in real use) and you hear one "tick";
+        turning anticlockwise removes time.
+        When you stop turning, the countdown starts with a soft tick every second.
+        At zero a small bell rings. Turning the phone again stops the bell.
+        <br />
+        <br />
+        Why: the sound copies the real object, a ratchet click for every step and
+        a bell at the end, so you can set and follow the timer without looking.
+        The sound is our own Faust model (faust-dsp/Kitchen/kitchenTimer.dsp).
       </p>
     </div>
 
